@@ -1,39 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {gameBoardReference}  from 'util.js';
 import PlayerEntry from './PlayerEntry'
-import {useHistory} from 'react-router-dom';
 
-function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData}){
+function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, formData, setFormData}){
 
   //Retrieve keys from boards, map to generate radio buttons
   const gameBoards = Object.keys(gameBoardReference[gameNumber]);
-
-  console.log(useHistory.path)
-
-  //Form Data state
-  const [formData, setFormData] = useState({
-    board: '',
-    player1Name: '',
-    player1Character: '',
-    player1Stars: '',
-    player1Coins: '',
-    player1Placed: '',
-    player2Name: '',
-    player2Character: '',
-    player2Stars: '',
-    player2Coins: '',
-    player2Placed: '',
-    player3Name: '',
-    player3Character: '',
-    player3Stars: '',
-    player3Coins: '',
-    player3Placed: '',
-    player4Name: '',
-    player4Character: '',
-    player4Stars: '',
-    player4Coins: '',
-    player4Placed: '',
-  });
 
   //Submit the form adn validate data
   const submitForm = (e) => {
@@ -51,7 +23,6 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData}){
     let valid = true;
     for (const [value] of Object.values(formData)){
       if (value === '' || value === undefined){
-        console.log(value);
         valid = false;
       }
     }
@@ -85,6 +56,7 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData}){
     })
   }
 
+
   return(
       <div className="new-game-content">
         <form className={`new-game-form ${showForm ? 'show-form' : ''}`}>
@@ -94,7 +66,7 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData}){
             {gameBoards.map((board, index) => {
               return <div className="board-selection" key={index}>
                       <input className="game-board-radio" type="radio" name="gameBoard" id={board + "-radio"} value={formData.board}
-                        onClick={() => setFormData(formData => ({...formData, board: board}))}/>
+                        onClick={() => setFormData(formData => ({...formData, board: board}))} />
                       <label htmlFor={board + "-radio"}>
                         <img className="game-board-img" src={gameBoardReference[gameNumber][board]} alt=""/>
                       </label>

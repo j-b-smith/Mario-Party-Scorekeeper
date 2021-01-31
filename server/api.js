@@ -70,7 +70,14 @@ app.post("/api/newgame", (req, res) => {
   console.log(req.body);
   addNewGame(req);
   res.send("API Post successful")
+});
 
+//Delete game by _id
+app.delete('/api/deletegame', (req, res) => {
+  Game.findOneAndRemove({_id: req.body._id}, (err) => {
+    if (err) console.error(err);
+    res.send(`Game with _id: ${req.body._id} successfully deleted.`)
+  })
 });
 
 //Test GET

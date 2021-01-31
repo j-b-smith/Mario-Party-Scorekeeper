@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import star from 'images/star.png'
 import coin from 'images/coin.png'
 import Player from './Player.jsx'
@@ -7,10 +7,26 @@ import {deleteIcon} from 'util.js';
 
 
 
-function Game({game}){
+function Game({game, getGameData}){
 
   //Sort players by place
-  const[playersSorted] = useState(game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1));
+  const playersSorted = game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1);
+
+  const deleteGame = () => {
+    fetch('http://localhost:8080/api/deletegame', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({_id: game._id})
+    }).then(response => {
+      if (response.status === 200){
+        console.log("Delete Successful")
+        getGameData();
+      } else {
+        console.log("Unable to delete")
+      }
+    })
+  }
+
 
   return(
       <div className="game-div med-blue-border">
@@ -39,7 +55,7 @@ function Game({game}){
           </tbody>
       </table>
       <div className="game-buttons">
-        <button>
+        <button onClick={deleteGame}>
           <img className='game-button-img' src={deleteIcon} alt='Yellow Delete Icon'/>
         </button>
       </div>

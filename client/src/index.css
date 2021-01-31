@@ -122,7 +122,7 @@ h3 {
 /********** Home Page Game Links */
 
 .game-links {
-  width: 40%;
+  width: 80%;
   margin: auto;
   text-align: center;
   background: rgba(0, 137, 209, 0.5);
@@ -130,7 +130,7 @@ h3 {
   border-radius: 3rem;
 }
 .game-links img {
-  width: 80%;
+  width: 25%;
   margin: 1rem;
   height: 5rem;
   transition: 250ms;
