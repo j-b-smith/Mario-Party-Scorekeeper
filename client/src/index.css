@@ -22,10 +22,6 @@ h3 {
    -1px -1px 2px black;
 }
 
-/* .white-glow {
-  box-shadow: 1px 1px 6rem white;
-} */
-
 .med-blue-border {
   border: 1px solid #0089d1;
 }
@@ -126,7 +122,7 @@ h3 {
 /********** Home Page Game Links */
 
 .game-links {
-  width: 85%;
+  width: 40%;
   margin: auto;
   text-align: center;
   background: rgba(0, 137, 209, 0.5);
@@ -134,19 +130,47 @@ h3 {
   border-radius: 3rem;
 }
 .game-links img {
-  width: 30%;
+  width: 80%;
   margin: 1rem;
   height: 5rem;
   transition: 250ms;
 }
 .game-links img:hover{
-  transform: translateX(1rem);
+  transform: translateX(2rem);
   filter: drop-shadow(1px 1px 1rem white)
           drop-shadow(-1px -1px 1rem white);
 }
 
 
 /********** Game Container */
+
+.game-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.game-buttons button {
+  background: none;
+  border: none;
+  outline: none;
+  width: 3rem;
+  height: 3rem;
+  margin-top: 0.5rem;
+}
+ .game-buttons button:active {
+   outline: none;
+ }
+
+ .game-buttons button:hover{
+   filter: drop-shadow(1px 1px 1rem white)
+           drop-shadow(-1px -1px 1rem white);
+ }
+
+ .game-button-img {
+   width: 100%;
+ }
+
 
 .game-div {
    width: 70%;
@@ -156,6 +180,18 @@ h3 {
    margin-bottom: 1rem;
    margin-top: 2rem;
    border-radius: 1rem;
+ }
+
+ .no-games{
+   height: 25rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 2rem;
+ }
+
+ .no-games img {
+   width: 20%;
  }
 
  .scores-table {

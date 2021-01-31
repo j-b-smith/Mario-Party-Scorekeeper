@@ -14,6 +14,9 @@ import birdo from 'images/character-icons/Birdo.png';
 import donkeyKong from 'images/character-icons/DonkeyKong.png';
 import daisy from 'images/character-icons/Daisy.png';
 
+import surprisedToad from 'images/no-games-toad.png'
+import trashCanYellow from 'images/delete-icon.png'
+
 //Import Game banners
 import mp1Logo from 'images/game-banners/marioparty1.png'
 import mp2Logo from 'images/game-banners/marioparty2.png'
@@ -103,8 +106,8 @@ export const placeIcons = {
     "Princess Peach": princessPeach,
     "Waluigi": waluigi,
     "Boo": boo,
-    "koopa": koopa,
-    "luigi": luigi,
+    "Koopa": koopa,
+    "Luigi": luigi,
     "Mario": mario,
     "Toad": toad,
     "Toadette": toadette,
@@ -287,6 +290,8 @@ export const placeIcons = {
    7: allGameCharacters.mp7Characters,
  }
 
+ export const noGamesToad = surprisedToad;
+ export const deleteIcon = trashCanYellow;
+
   /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-  export default {
-  };
+  export default {};

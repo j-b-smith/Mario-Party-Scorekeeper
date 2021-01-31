@@ -3,6 +3,8 @@ import star from 'images/star.png'
 import coin from 'images/coin.png'
 import Player from './Player.jsx'
 import GameHeader from './GameHeader.jsx'
+import {deleteIcon} from 'util.js';
+
 
 
 function Game({game}){
@@ -11,7 +13,7 @@ function Game({game}){
   const[playersSorted] = useState(game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1));
 
   return(
-      <div className="game-div white-glow med-blue-border">
+      <div className="game-div med-blue-border">
         <GameHeader board={game.board} date={game.date}/>
         <table className="scores-table yellow-header">
           <thead>
@@ -36,6 +38,11 @@ function Game({game}){
             })}
           </tbody>
       </table>
+      <div className="game-buttons">
+        <button>
+          <img className='game-button-img' src={deleteIcon} alt='Yellow Delete Icon'/>
+        </button>
+      </div>
     </div>
   );
 }

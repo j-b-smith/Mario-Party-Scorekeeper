@@ -54,53 +54,33 @@ const Game = mongoose.model("Game", gameSchema);
 const Player = mongoose.model("Player", playersSchema);
 
 //Get Games from the database
-function getGames(gameNumber, res) {
+function getGames(res) {
   let games = {};
-  Game.find({gameNumber: gameNumber}, (err, dbGames) => {
+  Game.find({}, (err, dbGames) => {
     if (err) console.error(err);
     games = dbGames;
+    console.log(games);
     res.send(games);
   });
 }
 
+//Post New Games to the database
 app.post("/api/newgame", (req, res) => {
-  console.log("This is the response");
+  console.log("This is the request");
   console.log(req.body);
-  res.send("API Post successful");
+  addNewGame(req);
+  res.send("API Post successful")
 
 });
 
 //Test GET
 app.get("/api", (req, res) => {
-  res.send("<h1>You have successfully connected to the API</h1>");
+  res.send("<h1>You have successfully connected to the MariopPartyScoreKeeper API</h1>");
 });
 
-app.get("/api/mp1", (req, res) => {
-  getGames(1, res);
-});
-
-app.get("/api/mp2", (req, res) => {
-  getGames(2, res);
-});
-
-app.get("/api/mp3", (req, res) => {
-  getGames(3, res);
-});
-
-app.get("/api/mp4", (req, res) => {
-  getGames(4, res);
-});
-
-app.get("/api/mp5", (req, res) => {
-  getGames(5, res);
-});
-
-app.get("/api/mp6", (req, res) => {
-  getGames(6, res);
-});
-
-app.get("/api/mp7", (req, res) => {
-  getGames(7, res);
+//Return all games
+app.get("/api/allGames", (req, res) => {
+  getGames(res);
 });
 
 //Start server
@@ -108,6 +88,56 @@ app.listen(process.env.PORT || 8080, () => {
   console.log("The server is running on port 8080");
 });
 
+const addNewGame = (req) => {
+
+  //Create players from response
+  let player1 = new Player({
+    player: req.body.formData.player1Name,
+    character: req.body.formData.player1Character,
+    stars: req.body.formData.player1Stars,
+    coins: req.body.formData.player1Coins,
+    placed: req.body.formData.player1Placed
+  });
+
+   let player2 = new Player({
+    player: req.body.formData.player2Name,
+    character: req.body.formData.player2Character,
+    stars: req.body.formData.player2Stars,
+    coins: req.body.formData.player2Coins,
+    placed: req.body.formData.player2Placed
+  });
+
+  let player3 = new Player({
+    player: req.body.formData.player3Name,
+    character: req.body.formData.player3Character,
+    stars: req.body.formData.player3Stars,
+    coins: req.body.formData.player3Coins,
+    placed: req.body.formData.player3Placed
+  });
+
+  let player4 = new Player({
+    player: req.body.formData.player4Name,
+    character: req.body.formData.player4Character,
+    stars: req.body.formData.player4Stars,
+    coins: req.body.formData.player4Coins,
+    placed: req.body.formData.player4Placed
+  });
+
+
+  let game = new Game({
+    board: req.body.formData.board,
+    date: new Date(),
+    players: [player1, player2, player3, player4],
+    gameNumber: req.body.gameNumber
+  });
+
+  game.save((err) => {
+      if (err) return console.error(err);
+      console.log("Game saved to games collection.");
+  });
+}
+
+// Game.deleteMany({});
 
 //
 // let waluigi = new Player({
