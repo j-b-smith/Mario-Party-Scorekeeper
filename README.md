@@ -8,7 +8,7 @@ The user is able to view games played, add new games and delete games.
 
 This project is a work-in-progress and a learning experience for me in the MERN stack of development. 
 
-##Features yet to be implemented: 
+### Features yet to be implemented: 
 - Edit Games
 - Determine what the player placed on the server-side (1st place goes to the player with the greatest number of stars, if two players have equal stars the greatest number of coins will get 1st place)
 - An additional page to show games based on different criteria (Includuing a certain player, games with a certain range of stars or coins)
