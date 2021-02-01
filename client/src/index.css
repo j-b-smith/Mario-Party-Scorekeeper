@@ -26,9 +26,28 @@ h3 {
   border: 1px solid #0089d1;
 }
 
+.dark-blue-border {
+  border: 1px solid #0078b8;
+}
+
+.thin-yellow-border{
+    border: 2px solid yellow;
+}
+
+.thick-yellow-border {
+  border: 4px solid yellow;
+}
+
 .glow {
   filter: drop-shadow(1px 1px 2rem white)
           drop-shadow(-1px -1px 2rem white);
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /********** Nav bar */
@@ -143,6 +162,61 @@ h3 {
 
 
 /********** Game Container */
+
+/* .fade-in-container {
+  opacity: 0;
+  transform: translateY(20vh);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 1.2s ease-out;
+  will-change: opacity, visibility;
+}
+
+.fade-in-container.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+} */
+
+.alert-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.2)
+}
+
+.alert-dialog {
+  background: rgb(0, 137, 209);
+  width: 40%;
+  margin: auto;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+
+.alert-dialog-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
+.alert-dialog-buttons button {
+  background-color: #0089d1;
+  outline: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  transition: 150ms;
+}
+
+.alert-dialog-buttons button:hover {
+  background: #00a6ff;
+}
+
+.alert-dialog-buttons button:active {
+  outline: none;
+}
 
 .game-buttons {
   display: flex;
