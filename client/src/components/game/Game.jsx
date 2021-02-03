@@ -1,10 +1,12 @@
-import React, {useState, useRef, useEffect} from "react";
-import star from 'images/star.png'
-import coin from 'images/coin.png'
-import Player from './Player.jsx'
-import GameHeader from './GameHeader.jsx'
+import React, {useState} from "react";
+import star from 'images/star.png';
+import coin from 'images/coin.png';
+import Player from './Player.jsx';
+import GameHeader from './GameHeader.jsx';
 import {deleteIcon} from 'util.js';
-import ModalDialog from '../ModalDialog';
+import {editIcon} from 'util.js';
+import DeleteDialog from '../dialogs/DeleteDialog';
+import EditDialog from '../dialogs/EditDialog';
 
 
 
@@ -13,8 +15,12 @@ function Game({game, getGameData}){
   //Sort players by place
   const playersSorted = game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1);
 
-  const [showModal, setShowModal] = useState(false);
+  //Set state for showing dialogs
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
+
+  //Put this in delete dialog??
   const deleteGame = () => {
     fetch('http://localhost:8080/api/deletegame', {
       method: 'DELETE',
@@ -30,22 +36,15 @@ function Game({game, getGameData}){
     })
   }
 
-  // const [isVisible, setVisible] = useState(true);
-  // const domRef = useRef();
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(entries => {
-  //     entries.forEach(entry => setVisible(entry.isIntersecting));
-  //   });
-  //   observer.observe(domRef.current);
-  //   let current = domRef.current;
-  //   return () => observer.unobserve(current);
-  // }, []);
-
-
   return(
     <div>
-    <ModalDialog showModal={showModal} setShowModal={setShowModal}
-                 deleteGame={deleteGame} modalAction="Delete" />
+    <DeleteDialog showDeleteModal={showDeleteModal}
+                  setShowDeleteModal={setShowDeleteModal}
+                  deleteGame={deleteGame}/>
+    <EditDialog showEditModal={showEditModal}
+                setShowEditModal={setShowEditModal}
+                game={game}
+                getGameData={getGameData}/>
       <div className="game-div med-blue-border">
         <GameHeader board={game.board} date={new Date(game.date).toDateString()}/>
         <table className="scores-table yellow-header">
@@ -72,8 +71,11 @@ function Game({game, getGameData}){
           </tbody>
       </table>
       <div className="game-buttons">
-        <button onClick={() => setShowModal(true)}>
-          <img className='game-button-img' src={deleteIcon} alt='Yellow Delete Icon'/>
+        <button onClick={() => setShowEditModal(true)}>
+          <img className='game-button-edit' src={editIcon} alt='Yellow Edit Icon'/>
+        </button>
+        <button onClick={() => setShowDeleteModal(true)}>
+          <img className='game-button-delete' src={deleteIcon} alt='Yellow Delete Icon'/>
         </button>
       </div>
       </div>

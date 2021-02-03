@@ -32,11 +32,11 @@ mongoose.connection.once("open", () => {
 
 //Create player schema
 const playersSchema = new mongoose.Schema({
-  player: String,
+  name: String,
   character: String,
   stars: Number,
   coins: Number,
-  placed: Number,
+  placed: Number
 });
 
 //Create game scema
@@ -59,7 +59,6 @@ function getGames(res) {
   Game.find({}, (err, dbGames) => {
     if (err) console.error(err);
     games = dbGames;
-    console.log(games);
     res.send(games);
   });
 }
@@ -67,7 +66,6 @@ function getGames(res) {
 //Post New Games to the database
 app.post("/api/newgame", (req, res) => {
   console.log("This is the request");
-  console.log(req.body);
   addNewGame(req);
   res.send("API Post successful")
 });
@@ -78,6 +76,56 @@ app.delete('/api/deletegame', (req, res) => {
     if (err) console.error(err);
     res.send(`Game with _id: ${req.body._id} successfully deleted.`)
   })
+});
+
+//Update game
+app.put('/api/updategame', (req, res) => {
+  console.log(req.body);
+  const update = {
+    board: req.body.board,
+    date: req.body.date,
+    players: [
+      {
+        name:      req.body.players[0].name,
+        character: req.body.players[0].character,
+        stars:     req.body.players[0].stars,
+        coins:     req.body.players[0].coins,
+        placed:    req.body.players[0].placed
+      },
+      {
+        name:      req.body.players[1].name,
+        character: req.body.players[1].character,
+        stars:     req.body.players[1].stars,
+        coins:     req.body.players[1].coins,
+        placed:    req.body.players[1].placed
+      },
+      {
+        name:      req.body.players[2].name,
+        character: req.body.players[2].character,
+        stars:     req.body.players[2].stars,
+        coins:     req.body.players[2].coins,
+        placed:    req.body.players[2].placed
+      },
+      {
+        name:      req.body.players[3].name,
+        character: req.body.players[3].character,
+        stars:     req.body.players[3].stars,
+        coins:     req.body.players[3].coins,
+        placed:    req.body.players[3].placed
+      }
+    ],
+    gameNumber: req.body.gameNumber
+  };
+
+  Game.findByIdAndUpdate(req.body._id, update, {useFindAndModify: false }, (err) => {
+    if (err) return console.error(err);
+    console.log(req.body._id);
+    res.send(`Game with _id: ${req.body._id} successfully updated.`);
+  });
+
+  Game.findById(req.body._id, (game) => {
+    console.log(game);
+  });
 });
 
 //Test GET
@@ -96,38 +144,38 @@ app.listen(process.env.PORT || 8080, () => {
 });
 
 const addNewGame = (req) => {
-
+  console.log(req.body);
   //Create players from response
   let player1 = new Player({
-    player: req.body.formData.player1Name,
-    character: req.body.formData.player1Character,
-    stars: req.body.formData.player1Stars,
-    coins: req.body.formData.player1Coins,
-    placed: req.body.formData.player1Placed
+    name:      req.body.formData.players[0].name,
+    character: req.body.formData.players[0].character,
+    stars:     req.body.formData.players[0].stars,
+    coins:     req.body.formData.players[0].coins,
+    placed:    req.body.formData.players[0].placed
   });
 
    let player2 = new Player({
-    player: req.body.formData.player2Name,
-    character: req.body.formData.player2Character,
-    stars: req.body.formData.player2Stars,
-    coins: req.body.formData.player2Coins,
-    placed: req.body.formData.player2Placed
+     name:      req.body.formData.players[1].name,
+     character: req.body.formData.players[1].character,
+     stars:     req.body.formData.players[1].stars,
+     coins:     req.body.formData.players[1].coins,
+     placed:    req.body.formData.players[1].placed
   });
 
   let player3 = new Player({
-    player: req.body.formData.player3Name,
-    character: req.body.formData.player3Character,
-    stars: req.body.formData.player3Stars,
-    coins: req.body.formData.player3Coins,
-    placed: req.body.formData.player3Placed
+    name:      req.body.formData.players[2].name,
+    character: req.body.formData.players[2].character,
+    stars:     req.body.formData.players[2].stars,
+    coins:     req.body.formData.players[2].coins,
+    placed:    req.body.formData.players[2].placed
   });
 
   let player4 = new Player({
-    player: req.body.formData.player4Name,
-    character: req.body.formData.player4Character,
-    stars: req.body.formData.player4Stars,
-    coins: req.body.formData.player4Coins,
-    placed: req.body.formData.player4Placed
+    name:      req.body.formData.players[3].name,
+    character: req.body.formData.players[3].character,
+    stars:     req.body.formData.players[3].stars,
+    coins:     req.body.formData.players[3].coins,
+    placed:    req.body.formData.players[3].placed
   });
 
 

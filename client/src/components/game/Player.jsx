@@ -11,7 +11,7 @@ function Player({player}){
             <span>{player.character}</span>
           </div>
           <div className="player-name-content">
-            <p>{player.player}</p>
+            <p>{player.name}</p>
           </div>
         </div>
       </td>

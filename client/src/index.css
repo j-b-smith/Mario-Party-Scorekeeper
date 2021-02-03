@@ -155,7 +155,7 @@ h3 {
   transition: 250ms;
 }
 .game-links img:hover{
-  transform: translateX(2rem);
+  transform: translateX(1rem);
   filter: drop-shadow(1px 1px 1rem white)
           drop-shadow(-1px -1px 1rem white);
 }
@@ -231,6 +231,7 @@ h3 {
   width: 3rem;
   height: 3rem;
   margin-top: 0.5rem;
+  margin-left: 1rem;
 }
  .game-buttons button:active {
    outline: none;
@@ -241,7 +242,11 @@ h3 {
            drop-shadow(-1px -1px 1rem white);
  }
 
- .game-button-img {
+ .game-button-edit {
+   width: 100%;
+ }
+
+ .game-button-delete {
    width: 100%;
  }
 
@@ -348,6 +353,14 @@ h3 {
    border-radius: 1rem;
  }
 
+ .new-game-container-edit {
+   width: 70%;
+   margin: auto;
+   background: rgb(0, 137, 209);
+   padding: 1rem;
+   border-radius: 1rem;
+ }
+
 
 .new-game-header {
   display: flex;
@@ -427,4 +440,27 @@ input[type=radio]:checked + label > img{
 .form-field input, .form-field select {
   height: 2rem;
   border: none;
+}
+
+
+/* hover and active not working*/
+.new-game-button-container button:hover {
+  background: #00a6ff;
+}
+
+.new-game-button-container button:active {
+  outline: none;
+}
+
+.new-game-button-container button {
+  background: #00a6ff;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+}
+
+.new-game-button-container {
+  text-align: right;
+  margin-top: 1.5rem;
 }

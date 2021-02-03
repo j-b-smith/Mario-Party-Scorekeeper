@@ -16,6 +16,7 @@ import daisy from 'images/character-icons/Daisy.png';
 
 import surprisedToad from 'images/no-games-toad.png'
 import trashCanYellow from 'images/delete-icon.png'
+import pencilYellow from 'images/edit-icon.png'
 
 //Import Game banners
 import mp1Logo from 'images/game-banners/marioparty1.png'
@@ -114,7 +115,7 @@ export const placeIcons = {
     "Birdo": birdo,
     "Dry Bones": dryBones,
     "Donkey Kong": donkeyKong,
-    "Daisy": daisy
+    "Princess Daisy": daisy
   };
 
   //Store game banner reference
@@ -292,6 +293,7 @@ export const placeIcons = {
 
  export const noGamesToad = surprisedToad;
  export const deleteIcon = trashCanYellow;
+ export const editIcon = pencilYellow;
 
   /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
   export default {};

@@ -24,38 +24,29 @@ function App() {
       .then(data => setGameData(data))
   }
 
+//Set initial players data
+  const initialPlayersData = [
+          { name: '', character: '', stars: '', coins: '', placed: ''},
+          { name: '', character: '', stars: '', coins: '', placed: ''},
+          { name: '', character: '', stars: '', coins: '', placed: ''},
+          { name: '', character: '', stars: '', coins: '', placed: ''}
+        ]
+
   //Set initial form data
   const initialFormData = {
     board: '',
-    player1Name: '',
-    player1Character: '',
-    player1Stars: '',
-    player1Coins: '',
-    player1Placed: '',
-    player2Name: '',
-    player2Character: '',
-    player2Stars: '',
-    player2Coins: '',
-    player2Placed: '',
-    player3Name: '',
-    player3Character: '',
-    player3Stars: '',
-    player3Coins: '',
-    player3Placed: '',
-    player4Name: '',
-    player4Character: '',
-    player4Stars: '',
-    player4Coins: '',
-    player4Placed: '',
+    players: initialPlayersData
   }
 
   //Form Data state
   const [formData, setFormData] = useState(initialFormData);
+  const [playersData, setPlayersData] = useState(initialPlayersData);
 
   //Reset the formData state and form fields whenever the route path changes
   const location = useLocation();
   useEffect(() => {
     setFormData(initialFormData);
+    setPlayersData(initialPlayersData);
 
     //Reset form inputs
     Array.from(document.querySelectorAll('input')).forEach(
@@ -78,37 +69,44 @@ function App() {
       <Route path="/marioparty1" >
         <GamePage bannerSrc={gameLogos.mp1} gameNumber="1"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty2">
         <GamePage bannerSrc={gameLogos.mp2} gameNumber="2"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty3">
         <GamePage bannerSrc={gameLogos.mp3} gameNumber="3"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty4">
         <GamePage bannerSrc={gameLogos.mp4} gameNumber="4"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty5">
         <GamePage bannerSrc={gameLogos.mp5} gameNumber="5"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty6">
         <GamePage bannerSrc={gameLogos.mp6} gameNumber="6"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
       <Route path="/marioparty7">
         <GamePage bannerSrc={gameLogos.mp7} gameNumber="7"
                   gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}/>
+                  formData={formData} setFormData={setFormData}
+                  playersData={playersData} setPlayersData={setPlayersData}/>
       </Route>
     </Switch>
 </main>

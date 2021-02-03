@@ -2,7 +2,7 @@ import React from 'react';
 import {gameBoardReference}  from 'util.js';
 import PlayerEntry from './PlayerEntry'
 
-function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, formData, setFormData}){
+function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, formData, setFormData, playersData, setPlayersData}){
 
   //Retrieve keys from boards, map to generate radio buttons
   const gameBoards = Object.keys(gameBoardReference[gameNumber]);
@@ -20,9 +20,12 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, f
 
   //Check for empty form fields
   const formValid = () => {
+    console.log(formData);
     let valid = true;
     for (const [value] of Object.values(formData)){
+      console.log(value + " is valid");
       if (value === '' || value === undefined){
+        console.log(value + " is either blank or undefined");
         valid = false;
       }
     }
@@ -65,8 +68,9 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, f
             <div className="board-select">
             {gameBoards.map((board, index) => {
               return <div className="board-selection" key={index}>
-                      <input className="game-board-radio" type="radio" name="gameBoard" id={board + "-radio"} value={formData.board}
-                        onClick={() => setFormData(formData => ({...formData, board: board}))} />
+                      <input className="game-board-radio" type="radio"
+                             name="gameBoard" id={board + "-radio"} value={formData.board}
+                             onChange={() => setFormData(formData => ({...formData, board: board}))} />
                       <label htmlFor={board + "-radio"}>
                         <img className="game-board-img" src={gameBoardReference[gameNumber][board]} alt=""/>
                       </label>
@@ -74,10 +78,15 @@ function NewGameForm({showForm, gameNumber, addNewGame, gameData, getGameData, f
             })}
             </div>
           </div>
-          {[1,2,3,4].map((playerNumber) => {
-            return <PlayerEntry key={playerNumber} playerNumber = {playerNumber} gameNumber = {gameNumber} setFormData={setFormData} formData={formData}/>
+          {[1,2,3,4].map((playerNumber, index) => {
+            return <PlayerEntry key={playerNumber} index = {index}
+                                gameNumber = {gameNumber} setFormData={setFormData}
+                                formData={formData} editPlayer={false}
+                                playersData={playersData} setPlayersData={setPlayersData}/>
           })}
-          <input type="submit" name="" value="Add New Game" onClick={(e) => submitForm(e)}/>
+          <div className='new-game-button-container'>
+            <button className="new-game-button thin-yellow-border yellow-header" onClick={(e) => submitForm(e)}>Add New Game</button>
+          </div>
         </form>
       </div>
   );
