@@ -16,8 +16,10 @@ Home Screen:
 Add New Game:
 ![add-new-game](https://user-images.githubusercontent.com/26418249/107124636-1226ea00-6873-11eb-8e0d-8dbef1123c21.gif)
 
-Delete Game: 
-![delete-game](https://user-images.githubusercontent.com/26418249/106404229-26e12900-6400-11eb-8d8a-c467c5431c72.gif)
-
 Edit Game: 
 ![edit-game](https://user-images.githubusercontent.com/26418249/107126557-a21e6100-687e-11eb-8361-68684b8ba23a.gif)
+
+Delete Game: 
+![delete-game](https://user-images.githubusercontent.com/26418249/107126660-21139980-687f-11eb-9e0e-2ec0f45dab8c.gif)
+
+
