@@ -45,19 +45,14 @@ function App() {
   //Reset the formData state and form fields whenever the route path changes
   const location = useLocation();
   useEffect(() => {
-    setFormData(initialFormData);
-    setPlayersData(initialPlayersData);
-
-    //Reset form inputs
-    Array.from(document.querySelectorAll('input')).forEach(
-      input => (input.value = "")
-    );
-    //Reset form select options
-    Array.from(document.querySelectorAll('select')).forEach(
-      select => (select.value = "Select...")
-    );
+    resetFormData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
+  const resetFormData = () => {
+    setFormData(initialFormData);
+    setPlayersData(initialPlayersData);
+  }
 
 
     return (
@@ -66,48 +61,16 @@ function App() {
       <Route exact path="/" >
         <Home bannerSrc={gameLogos.main} />
       </Route>
-      <Route path="/marioparty1" >
-        <GamePage bannerSrc={gameLogos.mp1} gameNumber="1"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty2">
-        <GamePage bannerSrc={gameLogos.mp2} gameNumber="2"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty3">
-        <GamePage bannerSrc={gameLogos.mp3} gameNumber="3"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty4">
-        <GamePage bannerSrc={gameLogos.mp4} gameNumber="4"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty5">
-        <GamePage bannerSrc={gameLogos.mp5} gameNumber="5"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty6">
-        <GamePage bannerSrc={gameLogos.mp6} gameNumber="6"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
-      <Route path="/marioparty7">
-        <GamePage bannerSrc={gameLogos.mp7} gameNumber="7"
-                  gameData={gameData} getGameData={getGameData}
-                  formData={formData} setFormData={setFormData}
-                  playersData={playersData} setPlayersData={setPlayersData}/>
-      </Route>
+      {[1,2,3,4,5,6,7].map((gameNumber) => {
+        return <Route path={`/marioparty${gameNumber}`} >
+                  <GamePage bannerSrc={gameLogos.[gameNumber]} gameNumber={gameNumber}
+                          gameData={gameData} getGameData={getGameData}
+                          formData={formData} setFormData={setFormData}
+                          playersData={playersData} setPlayersData={setPlayersData}
+                          resetFormData={resetFormData} key={gameNumber}/>
+               </Route>
+      })}
+
     </Switch>
 </main>
     );

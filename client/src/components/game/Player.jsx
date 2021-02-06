@@ -8,7 +8,7 @@ function Player({player}){
         <div className="player-col-content">
           <div className="character-content">
             <img src={characterIcons[player.character]} alt="Character Icon"/>
-            <span>{player.character}</span>
+            <span className="character-name-span">{player.character}</span>
           </div>
           <div className="player-name-content">
             <p>{player.name}</p>

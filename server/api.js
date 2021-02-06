@@ -22,7 +22,8 @@ app.use(express.static(__dirname + '/public'));
 //Connect to MongoDB database
 mongoose.connect("mongodb://localhost:27017/marioPartyDB", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 });
 
 //Verify connection established
@@ -80,39 +81,16 @@ app.delete('/api/deletegame', (req, res) => {
 
 //Update game
 app.put('/api/updategame', (req, res) => {
-  console.log(req.body);
+  const sortedPlayers = getCharacterPlaces(req.body.players);
+
   const update = {
     board: req.body.board,
     date: req.body.date,
     players: [
-      {
-        name:      req.body.players[0].name,
-        character: req.body.players[0].character,
-        stars:     req.body.players[0].stars,
-        coins:     req.body.players[0].coins,
-        placed:    req.body.players[0].placed
-      },
-      {
-        name:      req.body.players[1].name,
-        character: req.body.players[1].character,
-        stars:     req.body.players[1].stars,
-        coins:     req.body.players[1].coins,
-        placed:    req.body.players[1].placed
-      },
-      {
-        name:      req.body.players[2].name,
-        character: req.body.players[2].character,
-        stars:     req.body.players[2].stars,
-        coins:     req.body.players[2].coins,
-        placed:    req.body.players[2].placed
-      },
-      {
-        name:      req.body.players[3].name,
-        character: req.body.players[3].character,
-        stars:     req.body.players[3].stars,
-        coins:     req.body.players[3].coins,
-        placed:    req.body.players[3].placed
-      }
+      getPlayerFromArray(sortedPlayers, 0),
+      getPlayerFromArray(sortedPlayers, 1),
+      getPlayerFromArray(sortedPlayers, 2),
+      getPlayerFromArray(sortedPlayers, 3)
     ],
     gameNumber: req.body.gameNumber
   };
@@ -144,45 +122,19 @@ app.listen(process.env.PORT || 8080, () => {
 });
 
 const addNewGame = (req) => {
-  console.log(req.body);
-  //Create players from response
-  let player1 = new Player({
-    name:      req.body.formData.players[0].name,
-    character: req.body.formData.players[0].character,
-    stars:     req.body.formData.players[0].stars,
-    coins:     req.body.formData.players[0].coins,
-    placed:    req.body.formData.players[0].placed
-  });
 
-   let player2 = new Player({
-     name:      req.body.formData.players[1].name,
-     character: req.body.formData.players[1].character,
-     stars:     req.body.formData.players[1].stars,
-     coins:     req.body.formData.players[1].coins,
-     placed:    req.body.formData.players[1].placed
-  });
-
-  let player3 = new Player({
-    name:      req.body.formData.players[2].name,
-    character: req.body.formData.players[2].character,
-    stars:     req.body.formData.players[2].stars,
-    coins:     req.body.formData.players[2].coins,
-    placed:    req.body.formData.players[2].placed
-  });
-
-  let player4 = new Player({
-    name:      req.body.formData.players[3].name,
-    character: req.body.formData.players[3].character,
-    stars:     req.body.formData.players[3].stars,
-    coins:     req.body.formData.players[3].coins,
-    placed:    req.body.formData.players[3].placed
-  });
-
+  //Get sorted players arrays
+  const sortedPlayers = getCharacterPlaces(req.body.formData.players);
 
   let game = new Game({
     board: req.body.formData.board,
     date: new Date(),
-    players: [player1, player2, player3, player4],
+    players: [
+      new Player(getPlayerFromArray(sortedPlayers, 0)),
+      new Player(getPlayerFromArray(sortedPlayers, 1)),
+      new Player(getPlayerFromArray(sortedPlayers, 2)),
+      new Player(getPlayerFromArray(sortedPlayers, 3))
+    ],
     gameNumber: req.body.gameNumber
   });
 
@@ -192,101 +144,26 @@ const addNewGame = (req) => {
   });
 }
 
-// Game.deleteMany({});
+const getCharacterPlaces = (players) => {
+  //Sort the array of players by the greatest number of stars
+  //If the number of stars is equal, sort by the greatest number of coins
+  players.sort((a, b) => b.stars === a.stars ? b.coins - a.coins : b.stars - a.stars);
 
-//
-// let waluigi = new Player({
-//   player: "Joe",
-//   character: "Dry Bones",
-//   stars: Math.floor(Math.random() * 101),
-//   coins: Math.floor(Math.random() * 101),
-//   placed: 4
-// });
-//
-// let yoshi = new Player({
-//   player: "Kayla",
-//   character: "Birdo",
-//   stars: Math.floor(Math.random() * 101),
-//   coins: Math.floor(Math.random() * 101),
-//   placed: 3
-// });
-//
-// let princessPeach = new Player({
-//   player: "Kelly",
-//   character: "Donkey Kong",
-//   stars: Math.floor(Math.random() * 101),
-//   coins: Math.floor(Math.random() * 101),
-//   placed: 2
-// });
-//
-// let wario = new Player({
-//   player: "Nathan",
-//   character: "Mario",
-//   stars: Math.floor(Math.random() * 101),
-//   coins: Math.floor(Math.random() * 101),
-//   placed: 1
-// });
-//
-//   for (var i = 1; i < 5; i++){
-//   let game = new Game({
-//       board: "Faire Square",
-//       date: "12-25-2020",
-//       players: [waluigi, yoshi, princessPeach, wario],
-//       gameNumber: i
-//     });
-//     game.save();
-//   }
+  //Set the place of each player
+  players.forEach((player, index, players) => {
+    players[index].placed = index + 1;
+  })
 
-// //Create all games array
-// let allGames = [
-//   {marioPartyOneGames: []},
-//   {marioPartyTwoGames: []},
-//   {marioPartyThreeGames: []},
-//   {marioPartyFourGames: []},
-//   {marioPartyFiveGames: []},
-//   {marioPartySixGames: []},
-//   {marioPartySevenGames: []}
-// ];
-//
-// /*******Not filling arrays***********/
-// //Populate each game array
-// for (var i = 0; i < allGames.length; i++){
-//   Game.find({gameNumber: i + 1}, (err, dbGames) => {
-//   if (err) console.error(err);
-//   // allGames[i].push(dbGames);
-//   console.log(dbGames);
-//   console.log(allGames[i]);
-// });
-// }
-//
-// //Create a new game and add it to the DB
-// function createNewGame(req){
-//   //Create game
-//   let game = new Game({
-//     board: req.body.board,
-//     players: [],
-//     gameNumber: 1
-//   });
-//
-// //Loop through players
-// for (var i = 0; i < req.body.player.length; i++){
-//
-//   //Create new player
-//   let player = new Player({
-//     player: req.body.player[i],
-//     character: req.body.character[i],
-//     stars: req.body.stars[i],
-//     coins: req.body.coins[i],
-//     /* Need function to calculate place*/
-//     placed: "1st"
-//   });
-//
-//   //Add player to game
-//   game.players.push(player);
-// }
-//
-// //Save game in DB
-// game.save();
-//
-// return game;
-// }
+  return players;
+}
+
+
+const getPlayerFromArray = (playerArray, index) => {
+return   {
+          name:      playerArray[index].name,
+          character: playerArray[index].character,
+          stars:     playerArray[index].stars,
+          coins:     playerArray[index].coins,
+          placed:    playerArray[index].placed
+  }
+}

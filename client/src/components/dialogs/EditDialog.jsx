@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {gameBoardReference}  from 'util.js';
 import PlayerEntry from '../newgame/PlayerEntry'
 
-function EditDialog({showEditModal, setShowEditModal, game, getGameData}){
+function EditDialog({showEditModal, setShowEditModal, game, getGameData, formValid}){
 
   //Retrieve keys from boards, map to generate radio buttons
   const gameBoards = Object.keys(gameBoardReference[game.gameNumber]);
 
-  //Set edit players data state
-  const [editPlayersData, setEditPlayersData] = useState([
+  //Set the initial state of the players
+  const initialEditPlayersData = [
     {
       name: game.players[0].name,
       character: game.players[0].character,
@@ -37,26 +37,48 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData}){
       coins: game.players[3].coins,
       placed: game.players[3].placed
     }
-  ]);
+  ];
 
-  //Set edit form data state
-  const [editFormData, setEditFormData] = useState({
+  //Set the state for the players
+  const [editPlayersData, setEditPlayersData] = useState(initialEditPlayersData);
+
+  //Set the initial edit form data
+  const intialEditFormData = {
     _id: game._id,
     date: game.date,
     board: game.board,
     players: editPlayersData,
     gameNumber: game.gameNumber
-  });
+  };
 
+  //Set the state for the form
+  const [editFormData, setEditFormData] = useState(intialEditFormData);
+
+
+  //Submit the form adn validate data
+  const submitForm = (e) => {
+    //Stop the form from submitting
+    e.preventDefault();
+    if (formValid(editFormData)){
+      updateGame(e);
+    } else {
+      console.log("Form Not Valid")
+    }
+  };
 
   //Send update request to API
-  const updateGame = () => {
+  const updateGame = (e) => {
+
+    console.log(editFormData);
+
+    //Send the updated date to the API
     fetch('http://localhost:8080/api/updategame', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(editFormData)
     }).then(response => {
 
+      //Check the response
       if (response.status === 200){
         console.log("Update Successful")
         getGameData();
@@ -64,41 +86,59 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData}){
         console.log("Unable to Update")
       }
     })
+
+    //Hide the dialog
+    setShowEditModal(false);
+  }
+
+
+  //Cancel the game edit
+  const cancelEdit = (e) => {
+
+    //Prevent form functions
+    e.preventDefault();
+
+    //Reset the edit form data to it's initial state
+    setEditFormData(intialEditFormData);
+    setEditPlayersData(initialEditPlayersData);
+
+    //Hide the dialog
+    setShowEditModal(false);
   }
 
 
   if (showEditModal){
     return(
-      <div className='alert-overlay'>
-        <div className="new-game-container-edit yellow-header thick-yellow-border centered">
+      <div className='overlay'>
+        <div className="game-form-container edit-game yellow-header thick-yellow-border centered">
           <div className="new-game-content">
-            <form className="new-game-form show-form">
-              <div>
-                <label>Select the Board: </label>
-                <div className="board-select">
-                {gameBoards.map((board, index) => {
-                  return <div className="board-selection" key={index}>
-                          <input className="game-board-radio"
-                                 type="radio" name="gameBoard"
-                                 id={board + "-radio"} value={editFormData.board}/>
-                          <label htmlFor={board + "-radio"}>
-                            <img className="game-board-img"
-                                 src={gameBoardReference[game.gameNumber][board]}
-                                 alt={`Game Board: ${board}`}/>
-                          </label>
-                         </div>
-                })}
-                </div>
+          <form>
+            <div>
+              <label>Select the Board: </label>
+              <div className="board-select">
+              {gameBoards.map((board, index) => {
+
+                return <div className="board-selection" key={index}>
+                        <input className="game-board-radio" type="radio"
+                               name="gameBoard" id={board + "-radio-edit"} value={board}
+                               onChange={e => setEditFormData({...editFormData, board: board})}
+                               checked={editFormData.board === board}/>
+                        <label htmlFor={board + "-radio-edit"}>
+                          <img className="game-board-img" src={gameBoardReference[game.gameNumber][board]} alt=""/>
+                        </label>
+                       </div>
+              })}
               </div>
+            </div>
               {game.players.map((player, index) => {
                 return <PlayerEntry key={player._id} index = {index}
                                     gameNumber = {game.gameNumber} setEditFormData={setEditFormData}
                                     editFormData={editFormData} editPlayer={true}
                                     editPlayersData={editPlayersData} setEditPlayersData={setEditPlayersData}/>
               })}
-              <div className='new-game-button-container'>
-              <button className="new-game-button thin-yellow-border yellow-header" onClick={updateGame}>Save Changes</button>
-              <button className="new-game-button thin-yellow-border yellow-header" onClick={() => setShowEditModal(false)}>Cancel</button>
+              <div className='form-button-container'>
+              <button className="thin-yellow-border yellow-header" onClick={submitForm}>Save Changes</button>
+              <button className="thin-yellow-border yellow-header" onClick={cancelEdit}>Cancel</button>
               </div>
             </form>
           </div>

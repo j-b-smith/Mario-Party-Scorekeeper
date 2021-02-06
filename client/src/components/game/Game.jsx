@@ -10,7 +10,7 @@ import EditDialog from '../dialogs/EditDialog';
 
 
 
-function Game({game, getGameData}){
+function Game({game, getGameData, formValid}){
 
   //Sort players by place
   const playersSorted = game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1);
@@ -44,7 +44,8 @@ function Game({game, getGameData}){
     <EditDialog showEditModal={showEditModal}
                 setShowEditModal={setShowEditModal}
                 game={game}
-                getGameData={getGameData}/>
+                getGameData={getGameData}
+                formValid={formValid}/>
       <div className="game-div med-blue-border">
         <GameHeader board={game.board} date={new Date(game.date).toDateString()}/>
         <table className="scores-table yellow-header">

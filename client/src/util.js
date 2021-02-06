@@ -85,7 +85,7 @@ import snowflakeLake from 'images/boards/mp6/snowflake-lake.png';
 import toweringTreetop from 'images/boards/mp6/towering-treetop.png';
 
 //Import Mario Party 7 Boards
-import bowsersEnchantedInferno from 'images/boards/mp7/bowsers-enchanted-inferno-.png';
+import bowsersEnchantedInferno from 'images/boards/mp7/bowsers-enchanted-inferno.png';
 import grandCanal from 'images/boards/mp7/grand-canal.png';
 import neonHeights from 'images/boards/mp7/neon-heights.png';
 import pagodaPeak from 'images/boards/mp7/pagoda-peak.png';
@@ -121,13 +121,13 @@ export const placeIcons = {
   //Store game banner reference
   export const gameLogos = {
     main: mpLogo,
-    mp1: mp1Logo,
-    mp2: mp2Logo,
-    mp3: mp3Logo,
-    mp4: mp4Logo,
-    mp5: mp5Logo,
-    mp6: mp6Logo,
-    mp7: mp7Logo,
+    1: mp1Logo,
+    2: mp2Logo,
+    3: mp3Logo,
+    4: mp4Logo,
+    5: mp5Logo,
+    6: mp6Logo,
+    7: mp7Logo,
   };
 
  export const allGameBoards = {
