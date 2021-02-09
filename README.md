@@ -4,7 +4,7 @@
 I have played Mario Party since I was a kid and I thought what better way to learn full-stack development and React than with a scorekeeper! 
 
 The Mario Party Score Keeper is a MERN stack web app that allows the user to track games played and player scores for the first 7 Mario Party games. 
-The user is able to view games played, add new games, and delete games.
+The user is able to view games played, add new games, edit games and delete games.
 
 This project is a work-in-progress and a learning experience for me in the MERN stack of development. 
 
