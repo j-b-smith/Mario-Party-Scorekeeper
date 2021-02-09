@@ -1,0 +1,6 @@
+- Game Board selection for edit functionality resolved
+- Styling of selected game board changed
+- Game Board selection size adjusted
+- The place of the player is now calculated on the server side based on the greatest number of stars, or the greatest number of coins if the stars are equal
+- Player placed form field removes as is it now unnecessary 
+- Game component size adjusted to fit screen height 

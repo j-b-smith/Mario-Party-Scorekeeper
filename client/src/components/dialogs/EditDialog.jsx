@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {gameBoardReference}  from 'util.js';
-import PlayerEntry from '../newgame/PlayerEntry'
+import PlayerEntry from '../newgame/PlayerEntry';
+import ValidationDialog from "components/dialogs/ValidationDialog";
 
-function EditDialog({showEditModal, setShowEditModal, game, getGameData, formValid}){
+function EditDialog({showEditDialog, setShowEditDialog, game, getGameData, formValid}){
 
   //Retrieve keys from boards, map to generate radio buttons
   const gameBoards = Object.keys(gameBoardReference[game.gameNumber]);
@@ -14,28 +15,24 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData, formVal
       character: game.players[0].character,
       stars: game.players[0].stars,
       coins: game.players[0].coins,
-      placed: game.players[0].placed
     },
     {
       name: game.players[1].name,
       character: game.players[1].character,
       stars: game.players[1].stars,
       coins: game.players[1].coins,
-      placed: game.players[1].placed
     },
     {
       name: game.players[2].name,
       character: game.players[2].character,
       stars: game.players[2].stars,
       coins: game.players[2].coins,
-      placed: game.players[2].placed
     },
     {
       name: game.players[3].name,
       character: game.players[3].character,
       stars: game.players[3].stars,
       coins: game.players[3].coins,
-      placed: game.players[3].placed
     }
   ];
 
@@ -54,6 +51,8 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData, formVal
   //Set the state for the form
   const [editFormData, setEditFormData] = useState(intialEditFormData);
 
+  const [showValidationDialog, setShowValidationDialog] = useState(false);
+
 
   //Submit the form adn validate data
   const submitForm = (e) => {
@@ -62,15 +61,13 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData, formVal
     if (formValid(editFormData)){
       updateGame(e);
     } else {
+      setShowValidationDialog(true);
       console.log("Form Not Valid")
     }
   };
 
   //Send update request to API
   const updateGame = (e) => {
-
-    console.log(editFormData);
-
     //Send the updated date to the API
     fetch('http://localhost:8080/api/updategame', {
       method: 'PUT',
@@ -88,7 +85,7 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData, formVal
     })
 
     //Hide the dialog
-    setShowEditModal(false);
+    setShowEditDialog(false);
   }
 
 
@@ -103,14 +100,17 @@ function EditDialog({showEditModal, setShowEditModal, game, getGameData, formVal
     setEditPlayersData(initialEditPlayersData);
 
     //Hide the dialog
-    setShowEditModal(false);
+    setShowEditDialog(false);
   }
 
 
-  if (showEditModal){
+  if (showEditDialog){
     return(
       <div className='overlay'>
         <div className="game-form-container edit-game yellow-header thick-yellow-border centered">
+        <ValidationDialog setShowValidationDialog={setShowValidationDialog}
+                          showValidationDialog={showValidationDialog}
+                          gameType={"edit"}/>
           <div className="new-game-content">
           <form>
             <div>

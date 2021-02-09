@@ -16,8 +16,8 @@ function Game({game, getGameData, formValid}){
   const playersSorted = game.players.sort((a, b) => (a.placed > b.placed) ? 1: -1);
 
   //Set state for showing dialogs
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
 
   //Put this in delete dialog??
@@ -38,11 +38,11 @@ function Game({game, getGameData, formValid}){
 
   return(
     <div>
-    <DeleteDialog showDeleteModal={showDeleteModal}
-                  setShowDeleteModal={setShowDeleteModal}
+    <DeleteDialog showDeleteDialog={showDeleteDialog}
+                  setShowDeleteDialog={setShowDeleteDialog}
                   deleteGame={deleteGame}/>
-    <EditDialog showEditModal={showEditModal}
-                setShowEditModal={setShowEditModal}
+    <EditDialog showEditDialog={showEditDialog}
+                setShowEditDialog={setShowEditDialog}
                 game={game}
                 getGameData={getGameData}
                 formValid={formValid}/>
@@ -72,10 +72,10 @@ function Game({game, getGameData, formValid}){
           </tbody>
       </table>
       <div className="game-buttons">
-        <button onClick={() => setShowEditModal(true)}>
+        <button onClick={() => setShowEditDialog(true)}>
           <img className='game-button-edit' src={editIcon} alt='Yellow Edit Icon'/>
         </button>
-        <button onClick={() => setShowDeleteModal(true)}>
+        <button onClick={() => setShowDeleteDialog(true)}>
           <img className='game-button-delete' src={deleteIcon} alt='Yellow Delete Icon'/>
         </button>
       </div>

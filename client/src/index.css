@@ -11,6 +11,18 @@ h3 {
 }
 
 /********** Utility classes */
+@media only screen and (max-width: 1550px) {
+  .title-star-left{
+    display: none;
+  }
+  .title-star-right{
+    display: none;
+  }
+
+
+}
+
+/********** Utility classes */
 
 .yellow-header {
   color: yellow;
@@ -59,6 +71,15 @@ h3 {
   background-color: rgba(0,0,0,0.2)
 }
 
+.edit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.2)
+}
+
 /********** Nav bar */
 
 .navbar {
@@ -94,20 +115,24 @@ h3 {
   justify-content: space-between;
 }
 
+
 .nav-links a{
   padding-top: 0.3rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin-right: 1rem;
   transition: 250ms;
 }
 
+
 /********** Banner */
 
 .banner {
-  width: 75%;
+  width: 70%;
   margin: auto;
   text-align: center;
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .banner-content {
@@ -140,7 +165,8 @@ h3 {
 .home-banner {
   width: 70%;
   margin: auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .home-banner img {
@@ -171,7 +197,7 @@ h3 {
 
 
 /********** Delete game alert */
-.delete-alert {
+.alert {
   background: rgb(0, 137, 209);
   width: 40%;
   margin: auto;
@@ -181,12 +207,16 @@ h3 {
   border-radius: 1rem;
 }
 
-.delete-alert-buttons{
+.validation-alert {
+  position: absolute;
+}
+
+.alert-buttons{
   display: flex;
   justify-content: space-around;
 }
 
-.delete-alert-buttons button {
+.alert-buttons button {
   background-color: #0089d1;
   outline: none;
   padding: 0.75rem 2rem;
@@ -195,11 +225,11 @@ h3 {
   transition: 150ms;
 }
 
-.delete-alert-buttons button:hover {
+.alert-buttons button:hover {
   background: #00a6ff;
 }
 
-.delete-alert-buttons button:active {
+.alert-buttons button:active {
   outline: none;
 }
 

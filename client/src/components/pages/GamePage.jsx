@@ -1,16 +1,17 @@
-import React from "react";
-import NavBar from "components/NavBar"
-import Banner from "components/Banner"
-import NewGame from "components/newgame/NewGame"
-import Game from "components/game/Game"
-import NoGames from "components/game/NoGames"
+import React, {useState} from "react";
+import NavBar from "components/NavBar";
+import Banner from "components/Banner";
+import NewGame from "components/newgame/NewGame";
+import Game from "components/game/Game";
+import NoGames from "components/game/NoGames";
+import ValidationDialog from "components/dialogs/ValidationDialog";
 
 
 function GamePage({bannerSrc, gameNumber, gameData,
                    getGameData, formData, setFormData,
                    playersData, setPlayersData, resetFormData}) {
 
-
+  const [showNewValidationDialog, setShowNewValidationDialog] = useState(false);
 
   //Validate the form
   const formValid = (data) => {
@@ -40,10 +41,10 @@ function GamePage({bannerSrc, gameNumber, gameData,
         console.log("No Character was selected");
       }
     })
-
     //Return the result of the check
     return valid;
   }
+
 
   return ( <div>
       <NavBar / >
@@ -52,7 +53,11 @@ function GamePage({bannerSrc, gameNumber, gameData,
                getGameData={getGameData} formData={formData}
                setFormData={setFormData} playersData={playersData}
                setPlayersData={setPlayersData} formValid={formValid}
-               resetFormData={resetFormData}/>
+               resetFormData={resetFormData} setShowValidationDialog={setShowNewValidationDialog}/>
+
+      <ValidationDialog showValidationDialog={showNewValidationDialog}
+                        setShowValidationDialog={setShowNewValidationDialog}
+                        gameType={"new"}/>
 
       {/*Filters and displays games based on the game number associated with it*/}
       {gameData.filter((game) => {return game.gameNumber === parseInt(gameNumber)}).length > 0

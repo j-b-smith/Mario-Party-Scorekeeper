@@ -4,7 +4,8 @@ import NewGameForm from './NewGameForm'
 
 function NewGame({gameNumber, gameData, getGameData,
                   formData, setFormData, playersData,
-                  setPlayersData, formValid,resetFormData}){
+                  setPlayersData, formValid, resetFormData,
+                  setShowValidationDialog}){
 
   //Sets whether or not to display the form
   const [showFormState, setShowFormState] = useState(false);
@@ -17,7 +18,8 @@ function NewGame({gameNumber, gameData, getGameData,
                      gameData={gameData} getGameData={getGameData}
                      formData={formData} setFormData={setFormData}
                      playersData={playersData} setPlayersData={setPlayersData}
-                     formValid={formValid} resetFormData={resetFormData}/>
+                     formValid={formValid} resetFormData={resetFormData}
+                     setShowValidationDialog={setShowValidationDialog}/>
       </div>
     );
 }

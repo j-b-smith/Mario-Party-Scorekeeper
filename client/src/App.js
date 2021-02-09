@@ -26,10 +26,10 @@ function App() {
 
 //Set initial players data
   const initialPlayersData = [
-          { name: '', character: '', stars: '', coins: '', placed: ''},
-          { name: '', character: '', stars: '', coins: '', placed: ''},
-          { name: '', character: '', stars: '', coins: '', placed: ''},
-          { name: '', character: '', stars: '', coins: '', placed: ''}
+          { name: '', character: '', stars: '', coins: ''},
+          { name: '', character: '', stars: '', coins: ''},
+          { name: '', character: '', stars: '', coins: ''},
+          { name: '', character: '', stars: '', coins: ''}
         ]
 
   //Set initial form data
@@ -62,12 +62,12 @@ function App() {
         <Home bannerSrc={gameLogos.main} />
       </Route>
       {[1,2,3,4,5,6,7].map((gameNumber) => {
-        return <Route path={`/marioparty${gameNumber}`} >
+        return <Route path={`/marioparty${gameNumber}`} key={gameNumber}>
                   <GamePage bannerSrc={gameLogos.[gameNumber]} gameNumber={gameNumber}
                           gameData={gameData} getGameData={getGameData}
                           formData={formData} setFormData={setFormData}
                           playersData={playersData} setPlayersData={setPlayersData}
-                          resetFormData={resetFormData} key={gameNumber}/>
+                          resetFormData={resetFormData} />
                </Route>
       })}
 

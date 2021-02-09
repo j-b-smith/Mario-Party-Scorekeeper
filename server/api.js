@@ -81,6 +81,7 @@ app.delete('/api/deletegame', (req, res) => {
 
 //Update game
 app.put('/api/updategame', (req, res) => {
+  console.log(req.body);
   const sortedPlayers = getCharacterPlaces(req.body.players);
 
   const update = {
@@ -102,7 +103,7 @@ app.put('/api/updategame', (req, res) => {
   });
 
   Game.findById(req.body._id, (game) => {
-    console.log(game);
+    // console.log(game);
   });
 });
 
@@ -150,8 +151,8 @@ const getCharacterPlaces = (players) => {
   players.sort((a, b) => b.stars === a.stars ? b.coins - a.coins : b.stars - a.stars);
 
   //Set the place of each player
-  players.forEach((player, index, players) => {
-    players[index].placed = index + 1;
+  players.forEach((player, index) => {
+    player.placed = index + 1;
   })
 
   return players;

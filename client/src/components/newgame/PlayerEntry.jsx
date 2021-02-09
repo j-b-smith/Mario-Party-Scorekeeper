@@ -8,11 +8,9 @@ function PlayerEntry({index, gameNumber, setEditPlayersData, editPlayersData, ed
 
     //Check if player is being edited
     if (isEditPlayer){
-
       let tempPlayers = [...editPlayersData];
       tempPlayers[index].[e.target.name] = e.target.value;
       setEditPlayersData(tempPlayers);
-      console.log(tempPlayers);
     } else {
 
       let tempPlayers = [...playersData];

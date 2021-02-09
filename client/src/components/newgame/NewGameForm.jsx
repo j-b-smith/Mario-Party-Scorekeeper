@@ -5,7 +5,7 @@ import PlayerEntry from './PlayerEntry'
 function NewGameForm({showForm, gameNumber, addNewGame,
                       gameData, getGameData, formData,
                       setFormData, playersData, setPlayersData,
-                      formValid, resetFormData}){
+                      formValid, resetFormData, setShowValidationDialog}){
 
   //Retrieve keys from boards, map to generate radio buttons
   const gameBoards = Object.keys(gameBoardReference[gameNumber]);
@@ -17,7 +17,7 @@ function NewGameForm({showForm, gameNumber, addNewGame,
     if (formValid(formData)){
       postFormData();
     } else {
-      console.log("Form Not Valid")
+      setShowValidationDialog(true);
     }
   };
 
