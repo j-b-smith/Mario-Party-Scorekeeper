@@ -22,4 +22,10 @@ Edit Game:
 Delete Game: 
 ![delete-game](https://user-images.githubusercontent.com/26418249/107126660-21139980-687f-11eb-9e0e-2ec0f45dab8c.gif)
 
+Simple Input Validation: 
+
+* In the event that two players collect the same numbers of stars and coins, in Mario Party games 1 - 7 the tie is determined by a dice roll and beyond the scope of this             application
+![input-validation](https://user-images.githubusercontent.com/26418249/107298518-94fe9f00-6a43-11eb-90ca-644c2ea06576.gif)
+
+
 
